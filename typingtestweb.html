@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		* {
+			padding: 0;
+			margin:0;
+			box-sizing: border-box;
+			font-family: 'Josefin Sans', sans-serif;
+		}
+
+		.mainDiv {
+			width: 100%;
+			height: 100vh;
+			position: relative;
+			background: #3498db;
+		}
+
+		.centerDiv {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			text-align: center;
+
+		}
+
+		h1 {
+			text-transform: capitalize;
+			color: #ecf0f1;
+			text-shadow: 1px 2px 3px #2980b9;
+			font-size: 2.1rem;
+		}
+
+		textarea {
+			background-color: #444;
+			box-shadow: 0 0 1px rgba(0,0,0,0.2);
+			border-radius: 10px 10px 0 0;
+			border: 10px solid #34495e;
+			color: white;
+			font-size: 1.3rem;
+		}
+
+		.mainbtn {
+			padding: 10px 20px;
+			border-radius: 20px;
+			border: 5px solid #2980b9;
+			background: #ecf0f1;
+			font-size: 1rem;
+		}
+	</style>
+	<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div class="mainDiv">
+		<div class="centerDiv">
+			<h1>Welcome To Typing Test</h1>
+			<h2 id="msg"></h2>
+			<br>
+			<textarea id="mywords" cols="100" rows="10" placeholder="Type here"></textarea>
+			<br>
+			<button id="btn" class="mainbtn">Start</button>
+		</div>
+	</div>
+
+<script type="text/javascript">
+	const setOfWords = "Because of the laboriousness of the translation process, since the 1940s efforts have been made, with varying degrees of success, to automate translation or to mechanically aid the human translator. More recently, the rise of the Internet has fostered a world-wide market for translation services and has facilitated 'language localization'. Ideally, the translator must know both languages, as well as the subject that is to be translated.";
+	const msg = document.getElementById('msg');
+	const typewords = document.getElementById('mywords');
+	const btn = document.getElementById('btn');
+	let startTime , endTime;
+	//Below code helps to run the two functions 'playGame' and 'endPlay' on clicking the button
+	btn.addEventListener('click', function() {
+		if(this.innerText == 'Start') {
+			typewords.disabled = false;
+			playGame();
+		}else if(this.innerText == "Done") {
+			typewords.disabled = true;
+			btn.innerText = "Start";
+			endPlay();
+		}
+
+
+	})
+	//playGame function
+	const playGame = () => {
+		msg.innerText = setOfWords;
+		let date = new Date();
+		startTime = date.getTime();
+		btn.innerText = "Done";
+	}
+	//endPlay function
+	const endPlay = () => {
+		let date = new Date();
+		endTime = date.getTime();
+		let totalTime = ((endTime - startTime)/ 1000);
+		console.log(totalTime);
+
+		let totalStr = typewords.value;
+		let wordCount = wordCounter(totalStr);
+		let speed = Math.round((wordCount / totalTime) * 60);
+		let finalMsg = "Your typing speed is " + speed + "words per minute!";
+		finalMsg += compareWords(msg.innerText, totalStr);
+		msg.innerText = finalMsg;
+
+	}
+	/*compareWords function compares the original sentence that is present in the 'msg' AND the words we write that is present in 'typewords'
+	*/
+	const compareWords = (str1, str2) => {
+		let words1 = str1.split(" ");
+		let words2 = str2.split(" ");
+		let cnt = 0;
+
+		words1.forEach(function(item, index) {
+			if(item == words2[index]) {
+				cnt++;
+			}
+		})
+
+		let errorWords = (words1.length - cnt);
+		return(" " + cnt + "correct out of " + words1.length + " words and total number of errors are " + errorWords + ".")
+	}
+
+	const wordCounter = (str) => {
+		let response = str.split(" ").length;
+		console.log(response);
+		return response;
+	}
+
+</script>
+</body>
+</html>
