@@ -65,7 +65,7 @@
 	</div>
 
 <script type="text/javascript">
-	const setOfWords = "Because of the laboriousness of the translation process, since the 1940s efforts have been made, with varying degrees of success, to automate translation or to mechanically aid the human translator. More recently, the rise of the Internet has fostered a world-wide market for translation services and has facilitated 'language localization'. Ideally, the translator must know both languages, as well as the subject that is to be translated.";
+	const setOfWords = ["No more will my green sea go turn a deeper blue. I could not foresee this thing happening to you. If I look hard enough into the setting sun, my love will laugh with me before the morning comes.", "There is no difference between time and any of the dimensions of space except that our consciousness moves along it.", "I know just how to whisper and I know just how to cry. I know just where to find the answers and I know just how to lie. I know just how to fake it and I know just how to scheme. I know just when to face the truth and then I know just when to dream.", "I am sitting in the morning at the diner on the corner. I am waiting at the counter for the man to pour the coffee, and he fills it only halfway, and before I even argue, he is looking out the window at somebody coming in."];
 	const msg = document.getElementById('msg');
 	const typewords = document.getElementById('mywords');
 	const btn = document.getElementById('btn');
@@ -85,7 +85,9 @@
 	})
 	//playGame function
 	const playGame = () => {
-		msg.innerText = setOfWords;
+		let i = Math.round(Math.random()*3);
+		console.log(i);
+		msg.innerText = setOfWords[i];
 		let date = new Date();
 		startTime = date.getTime();
 		btn.innerText = "Done";
